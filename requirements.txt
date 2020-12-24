@@ -5,4 +5,3 @@ Image
 gunicorn==19.0.0
 scikit-learn==0.23.2
 python-dateutil==2.8.1
-PIL.ImageOps==1.1.3
