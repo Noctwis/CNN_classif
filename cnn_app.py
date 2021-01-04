@@ -1,49 +1,48 @@
+import numpy as np
 import streamlit as st
 import keras
-import tensorflow.keras
 from PIL import Image, ImageOps
-import numpy as np
-st.title("Image Classification")
-st.header("Brest cancer Classification Example")
-st.text("Upload a brest cancer Image for image classification as cancer or no-cancer")
 
-def teachable_machine_classification(img, weights_file):
-    # Load the model
-    model = tensorflow.keras.models.load_model(weights_file)
+model = keras.models.load_model('my_model.hdf5')
 
-    # Create the array of the right shape to feed into the keras model
-    data = np.ndarray(shape=(1, 75, 75, 3), dtype=np.float32)
-    image = img
-    #image sizing
-    size = (75, 75)
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
-
-    #turn the image into a numpy array
-    image_array = np.asarray(image)
-    # Normalize the image
-    normalized_image_array = (image_array.astype(np.float32) / 255.0)
-
-    # Load the image into the array
-    data[0] = normalized_image_array  # (Not sure if this is needed, but gives an error!!!)
-
-    # run the inference
-    prediction = model.predict(data)
-    return np.argmax(prediction) # return position of the highest probability
+def import_and_predict(image_data, model):
     
+        size = (75,75)    
+        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+        image = image.convert('RGB')
+        image = np.asarray(image)
+        image = (image.astype(np.float32) / 255.0)
 
+        img_reshape = image[np.newaxis,...]
 
-uploaded_file = st.file_uploader("Choose photo ...", type=["jpg", "png"])
-if uploaded_file is not None:
-  image = Image.open(uploaded_file)
-  st.image(image, caption='Uploaded cancer.', use_column_width=True)
-  st.write("")
-  st.write("Classifying...")
-  label = teachable_machine_classification(image, 'my_model.hdf5') # Name of the model from Teachablemachine
-  if np.argmax(prediction) == 0:
-      st.write("Not sick")
-  elif np.argmax(prediction) == 1:
-      st.write("Sick")
-  else:
-      st.write("")
+        prediction = model.predict(img_reshape)
+        
+        return prediction
 
+model = keras.models.load_model('my_model.hdf5')
 
+st.write("""
+         # Cancer Prediction
+         """
+         )
+
+st.write("This is a simple image classification web app to predict cancer")
+
+file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
+#
+if file is None:
+    st.text("You haven't uploaded an image file")
+else:
+    image = Image.open(file)
+    st.image(image, use_column_width=True)
+    prediction = import_and_predict(image, model)
+    
+    if np.argmax(prediction) == 0:
+        st.write("Not sick")
+    elif np.argmax(prediction) == 1:
+        st.write("Sick")
+    else:
+        st.write("")
+    
+    st.text("Probability (0: Not sick, 1: Sick)")
+    st.write(prediction)
