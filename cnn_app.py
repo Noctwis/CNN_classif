@@ -39,11 +39,11 @@ if uploaded_file is not None:
   st.write("")
   st.write("Classifying...")
   label = teachable_machine_classification(image, 'my_model.hdf5') # Name of the model from Teachablemachine
-    if np.argmax(prediction) == 0:
-        st.write("Not sick")
-    elif np.argmax(prediction) == 1:
-        st.write("Sick")
-    else:
-        st.write("")
+  if np.argmax(prediction) == 0:
+      st.write("Not sick")
+  elif np.argmax(prediction) == 1:
+      st.write("Sick")
+  else:
+      st.write("")
 
 
