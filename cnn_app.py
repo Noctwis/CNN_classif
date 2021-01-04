@@ -1,5 +1,4 @@
 import streamlit as st
-from img_classification import teachable_machine_classification
 import keras
 import tensorflow.keras
 from PIL import Image, ImageOps
@@ -8,9 +7,9 @@ st.title("Image Classification with Google's Teachable Machine")
 st.header("Brain Tumor MRI Classification Example")
 st.text("Upload a brain MRI Image for image classification as tumor or no-tumor")
 
-def teachable_machine_classification(img):
+def teachable_machine_classification(img, weights_file):
     # Load the model
-    model = tensorflow.keras.models.load_model('my_model.hdf5')
+    model = tensorflow.keras.models.load_model(weights_file)
 
     # Create the array of the right shape to feed into the keras model
     data = np.ndarray(shape=(1, 75, 75, 3), dtype=np.float32)
@@ -39,7 +38,7 @@ if uploaded_file is not None:
   st.image(image, caption='Uploaded MRI.', use_column_width=True)
   st.write("")
   st.write("Classifying...")
-  label = teachable_machine_classification(image, 'classification.h5') # Name of the model from Teachablemachine
+  label = teachable_machine_classification(image, 'my_model.hdf5') # Name of the model from Teachablemachine
   if label == 0:
     st.write("Positive")
   else:
