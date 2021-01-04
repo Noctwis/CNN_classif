@@ -4,7 +4,7 @@ import keras
 from PIL import Image, ImageOps
 from keras.models import load_model
 
-model = load_model('my_model.hdf5')
+model = load_model('my_model.h5')
 
 def import_and_predict(image_data, model):
     
