@@ -32,17 +32,18 @@ def teachable_machine_classification(img, weights_file):
     
 
 
-uploaded_file = st.file_uploader("Choose photo ...", type="jpg")
+uploaded_file = st.file_uploader("Choose photo ...", type=["jpg", "png"])
 if uploaded_file is not None:
   image = Image.open(uploaded_file)
   st.image(image, caption='Uploaded MRI.', use_column_width=True)
   st.write("")
   st.write("Classifying...")
   label = teachable_machine_classification(image, 'my_model.hdf5') # Name of the model from Teachablemachine
-  if label == 0:
-    st.write("Positive")
-  else:
-    st.write("Healthy")
-    
+    if np.argmax(prediction) == 0:
+        st.write("Not sick")
+    elif np.argmax(prediction) == 1:
+        st.write("Sick")
+    else:
+        st.write("")
 
 
