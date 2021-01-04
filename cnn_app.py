@@ -2,8 +2,9 @@ import numpy as np
 import streamlit as st
 import keras
 from PIL import Image, ImageOps
+from keras.models import load_model
 
-model = keras.models.load_model('my_model.hdf5')
+model = load_model('my_model.hdf5')
 
 def import_and_predict(image_data, model):
     
@@ -19,7 +20,7 @@ def import_and_predict(image_data, model):
         
         return prediction
 
-model = keras.models.load_model('my_model.hdf5')
+model = load_model('my_model.hdf5')
 
 st.write("""
          # Cancer Prediction
