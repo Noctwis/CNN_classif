@@ -75,6 +75,20 @@ else:
         st.write("R")
     elif np.argmax(prediction) == 18:
         st.write("S")
+    elif np.argmax(prediction) == 18:
+        st.write("T")
+    elif np.argmax(prediction) == 18:
+        st.write("U")
+    elif np.argmax(prediction) == 18:
+        st.write("V")
+    elif np.argmax(prediction) == 18:
+        st.write("W")
+    elif np.argmax(prediction) == 18:
+        st.write("X")
+    elif np.argmax(prediction) == 18:
+        st.write("Y")
+    elif np.argmax(prediction) == 18:
+        st.write("Z")
     else:
         st.write("")
     
