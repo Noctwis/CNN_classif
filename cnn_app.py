@@ -3,7 +3,7 @@ import streamlit as st
 from PIL import Image, ImageOps
 import tensorflow as tf
 
-model = tf.keras.models.load_model('my_model.hdf5')
+model = tf.keras.models.load_model('MyModel_h5.h5')
 
 def import_and_predict(image_data, model):
     
@@ -22,11 +22,11 @@ def import_and_predict(image_data, model):
 model = tf.keras.models.load_model('my_model.hdf5')
 
 st.write("""
-         # Cancer Prediction
+         # Letter prédiction
          """
          )
 
-st.write("This is a simple image classification web app to predict cancer")
+st.write("This is a simple image classification web app to predict letter")
 
 file = st.file_uploader("Please upload an image file", type=["jpg", "png"])
 #
@@ -38,11 +38,45 @@ else:
     prediction = import_and_predict(image, model)
     
     if np.argmax(prediction) == 0:
-        st.write("Not sick")
+        st.write("A")
     elif np.argmax(prediction) == 1:
-        st.write("Sick")
+        st.write("B")
+    elif np.argmax(prediction) == 2:
+        st.write("C")
+    elif np.argmax(prediction) == 3:
+        st.write("D")
+    elif np.argmax(prediction) == 4:
+        st.write("E")
+    elif np.argmax(prediction) == 5:
+        st.write("F")
+    elif np.argmax(prediction) == 6:
+        st.write("G")
+    elif np.argmax(prediction) == 7:
+        st.write("H")
+    elif np.argmax(prediction) == 8:
+        st.write("I")
+    elif np.argmax(prediction) == 9:
+        st.write("J")
+    elif np.argmax(prediction) == 10:
+        st.write("K")
+    elif np.argmax(prediction) == 11:
+        st.write("L")
+    elif np.argmax(prediction) == 12:
+        st.write("M")
+    elif np.argmax(prediction) == 13:
+        st.write("N")
+    elif np.argmax(prediction) == 14:
+        st.write("O")
+    elif np.argmax(prediction) == 15:
+        st.write("P")
+    elif np.argmax(prediction) == 16:
+        st.write("Q")
+    elif np.argmax(prediction) == 17:
+        st.write("R")
+    elif np.argmax(prediction) == 18:
+        st.write("S")
     else:
         st.write("")
     
-    st.text("Probability (0: Not sick, 1: Sick)")
+    #st.text("Probability (0: Not sick, 1: Sick)")
     st.write(prediction)
